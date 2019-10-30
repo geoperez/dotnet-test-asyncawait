@@ -9,3 +9,5 @@ https://www.gutenberg.org/files/60585/60585-0.txt
 2 - Implement a consumer class for receiving a Bag-of-Words without Concurrent Collections (ManualResentEvent, Semaphore, etc).
 
 3 - Implement a subscriber method using Bag-of-Words and run in parallel all the files (Parallel.For).
+
+// KEZO add concurrent logging
