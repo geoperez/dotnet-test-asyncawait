@@ -1,13 +1,19 @@
 # dotnet-test-asyncawait
 .NET Core Test for Interns
 
-1 - Create an method to download TXT files and save them into a local folder (Async/Await).
-// KEZO Agregar 10 de estos
-https://www.gutenberg.org/files/60584/60584-0.txt
-https://www.gutenberg.org/files/60585/60585-0.txt
+1 - Create a method to download TXT files and save them into a local folder named "Books" in desktop (Async/Await).
 
-2 - Implement a consumer class for receiving a Bag-of-Words without Concurrent Collections (ManualResentEvent, Semaphore, etc).
+   - The book list is in the static class **Info**, through **Books** property. 
+   - The book's download URL is form by the book's id, as in **GetUrl** method from **Utils** class.
 
-3 - Implement a subscriber method using Bag-of-Words and run in parallel all the files (Parallel.For).
+2 - Generate the Bag-of-Words (BoW) of each file.
+   
+   - [Bag-of-Words](https://en.wikipedia.org/wiki/Bag-of-words_model)
 
-// KEZO add concurrent logging
+3 - Implement a Producer/Consumer pattern for receiving the BoW of each file and generate a single final BoW (the union of all individual BoW).
+
+   - Run all files in parallel (Parallel.For).
+   - You must use some sort of synchronization mechanism (ManualResentEvent, Semaphore, etc).
+   - *Note: Use of any type of Concurrent Collections is forbidden.*
+
+4 - Log to a file, all events and error, you consider necessary (Starting download, download finished, Processing file, etc).
