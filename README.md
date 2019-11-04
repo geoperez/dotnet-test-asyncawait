@@ -10,7 +10,7 @@
    
    - [Bag-of-Words](https://en.wikipedia.org/wiki/Bag-of-words_model)
 
-3 - Implement a Producer/Consumer pattern for receiving the BoW of each file and generate a single final BoW (the union of all individual BoW).
+3 - Implement a Producer/Consumer pattern for receiving the BoW of each file and generate a single final BoW file (the union of all individual BoW).
 
    - Run all files in parallel (Parallel.For).
    - You must use some sort of synchronization mechanism (ManualResentEvent, Semaphore, etc).
