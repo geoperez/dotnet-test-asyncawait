@@ -1,6 +1,7 @@
 ﻿namespace AsyncAwaitTest
 {
     using System;
+    using System.IO;
     using System.Net.Http;
 
     public static class Utils
@@ -21,9 +22,9 @@
                     data = client.GetStringAsync(url).GetAwaiter().GetResult();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                // Log Error
+                new FileLogger().LogMessage(ex.Message);
             }
 
             return data;
@@ -31,7 +32,10 @@
 
         public static void SaveFile(string path, string contents)
         {
-            // Code here
+            var directoryName = Path.GetDirectoryName(path);
+            Directory.CreateDirectory(directoryName);
+            
+            File.WriteAllText(Path.Combine(directoryName, path), contents);
         }
     }
 }
