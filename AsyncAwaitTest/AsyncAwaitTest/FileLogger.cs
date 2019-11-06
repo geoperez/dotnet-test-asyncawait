@@ -8,17 +8,28 @@
     {
         private const string LogFile = "log.txt";
         private const string ErrorLogFile = "errlog.txt";
+        private static object _object = new object();
 
         public void LogError(Exception ex)
         {
-            throw new NotImplementedException();
+            lock (_object)
+            {
+                using var sw = new StreamWriter(ErrorLogFile, true);
+                var msg = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + " - " + ex.Message;
+                Console.WriteLine(msg);
+                sw.WriteLine(msg);
+                sw.Flush();
+            }
         }
 
         public void LogMessage(string message)
         {
-            using (var sw = new StreamWriter(LogFile, true))
+            lock (_object)
             {
-                sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + " - " + message);
+                using var sw = new StreamWriter(LogFile, true);
+                var msg = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + " - " + message;
+                Console.WriteLine(msg);
+                sw.WriteLine(msg);
                 sw.Flush();
             }
         }
