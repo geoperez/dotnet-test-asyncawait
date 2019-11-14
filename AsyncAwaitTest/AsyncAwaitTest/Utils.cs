@@ -1,16 +1,20 @@
 ﻿namespace AsyncAwaitTest
 {
     using System;
+    using System.IO;
     using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public static class Utils
     {
+        private static object locker = new object();
         public static string GetUrl(int id)
         {
             return "https://www.gutenberg.org/files/" + id + "/" + id + "-0.txt";
         }
 
-        public static string GetFile(string url)
+        public async static Task<string> GetFile(string url)
         {
             var data = string.Empty;
 
@@ -18,7 +22,7 @@
             {
                 using (var client = new HttpClient())
                 {
-                    data = client.GetStringAsync(url).GetAwaiter().GetResult();
+                    data = await client.GetStringAsync(url); //.GetAwaiter().GetResult();
                 }
             }
             catch(Exception ex)
@@ -32,6 +36,9 @@
         public static void SaveFile(string path, string contents)
         {
             // Code here
+            Monitor.Enter(locker);
+            File.WriteAllText(path, contents);
+            Monitor.Exit(locker);
         }
     }
 }
